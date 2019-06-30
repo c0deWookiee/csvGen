@@ -1,3 +1,4 @@
+//handles all of the
 module.exports = {
   get: (req, res) => {
     console.log(`it's a get request yo.`);

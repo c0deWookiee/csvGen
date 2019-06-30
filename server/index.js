@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const path = require("path");
 const router = require("./routes.js");
 const port = 1337;
 
@@ -13,7 +12,8 @@ app.use(bodyParser.json());
 app.use("/", router);
 
 //serve the html
-app.use(express.static(__dirname + "../"));
+//you have to close the directory inorder to go back out
+app.use(express.static(__dirname + "/../"));
 
 //initiate static server
 app.listen(port, () => {
