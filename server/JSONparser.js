@@ -1,4 +1,4 @@
-const salesReport = require("./sales_report");
+const salesReport = require("../../../sales_report");
 
 const populateCSV = (report, fields) => {
   let output = "";
@@ -24,10 +24,10 @@ const restOfCSV = report => {
   if (report === undefined) return;
   //initiate a str variable
   //gather the values from the report into a string, separated by commas.
-  let output = populateCSV(report, true)
-    // .join(",")
-    //replace the last character of the strin with a newline
-    .replace(/.$/, "\n");
+  let output = populateCSV(report, true);
+  // .join(",")
+  //replace the last character of the strin with a newline
+  // .replace(/.$/, "\n");
   //recursive call to affect all possible children
   for (let child of report.children) {
     output += restOfCSV(child);
@@ -36,4 +36,4 @@ const restOfCSV = report => {
   //return the string
   return output;
 };
-console.log(restOfCSV(salesReport));
+console.log(populateCSV(salesReport) + restOfCSV(salesReport));
