@@ -1,9 +1,18 @@
 const router = require("express").Router();
 const controller = require("./controller");
+const multer = require("multer");
+const storage = multer.diskStorage({
+  destination: "./uploads",
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + "-" + Date.now());
+  }
+});
 
+const upload = multer({ destination: "./uploads", storage: storage });
+// const uploads = multer({ storage: storage });
 router
   .route("/generator")
   .get(controller.get)
-  .post(controller.post);
+  .post(upload.single("json"), controller.post);
 
 module.exports = router;

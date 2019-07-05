@@ -1,16 +1,17 @@
 // window.onload = () => {
 const csv = document.getElementsByClassName("csv")[0];
 const button = document.getElementsByTagName("button")[0];
+const formData = new FormData();
 console.log(textArea, "what is this lol");
+
 button.addEventListener("click", async () => {
-  const body = textArea.value;
-  console.log(typeof body, "inside of post event");
+  const body = textArea.files[0];
+
+  formData.append("json", body);
+  console.log(formData, "inside of post event", body);
 
   fetch("http://localhost:1337/generator", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
     body: body
   })
     .then(function(data) {

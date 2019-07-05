@@ -1,11 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const router = require("./routes.js");
+
 const port = 1337;
 
 const app = express();
 //middleware
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //routes

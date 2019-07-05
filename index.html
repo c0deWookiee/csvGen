@@ -14,10 +14,13 @@
   <body>
     <div>hello from server</div>
     <div class="csv"></div>
-    <form action="">
-      <textarea name="body" id="textArea" cols="30" rows="30"></textarea>
+
+    <form action="" enctype="multipart/form-data">
+      <input type="file" id="textArea" name="json" />
     </form>
     <button type="button">postJSON</button>
+    <button class="download">choose from last 5 csv</button>
+    <div class="downloadList"></div>
     <script src="./app.js"></script>
   </body>
 </html>
