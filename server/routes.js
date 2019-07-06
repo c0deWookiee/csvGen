@@ -9,10 +9,10 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ destination: "./uploads", storage: storage });
-// const uploads = multer({ storage: storage });
 router
   .route("/generator")
   .get(controller.get)
   .post(upload.single("json"), controller.post);
 
+router.route("/download").post(controller.download);
 module.exports = router;

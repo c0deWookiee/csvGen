@@ -1,6 +1,7 @@
-//handles all of the
 const CSVGen = require("./server").generateCSV;
 const fs = require("fs");
+
+const path = require("path");
 let latestFile;
 fs.readdir("./uploads", (err, files) => {
   if (err) throw err;
@@ -10,7 +11,11 @@ fs.readdir("./uploads", (err, files) => {
 module.exports = {
   get: (req, res) => {
     console.log(`it's a get request`);
-    res.send("yougot it boss");
+    fs.readdir("./uploads", (err, files) => {
+      if (err) throw err;
+
+      res.send({ message: files });
+    });
   },
   post: (req, res, next) => {
     const file = `./uploads/`;
@@ -19,11 +24,24 @@ module.exports = {
     const output = CSVGen(req.body);
     fs.writeFile(fileName, output, (err, file) => {
       if (err) console.log(err);
-      console.log(typeof file);
-      res.send(`the latest file is ${name}, the old one is ${latestFile}`);
+      res.send(output);
       latestFile = name;
     });
     console.log(output, "this is after parsing");
-    // res.send("nofile");
+  },
+  download: (req, res) => {
+    console.log("its a  download request", req.body);
+    const opts = {
+      // root: path.join(__dirname),
+      dotfles: "deny",
+      headers: {
+        "x-timestamp": Date.now(),
+        "x-sent": true
+      }
+    };
+    res.sendFile(path.resolve("./uploads/" + req.body.text), opts, err => {
+      if (err) throw err;
+      console.log("sent");
+    });
   }
 };
