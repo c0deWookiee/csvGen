@@ -42,7 +42,7 @@ const createAppend = (element, body, className, event) => {
           link.style.display = "none";
           document.body.appendChild(link);
           link.href = objectURL;
-          link.href = URL.createObjectURL(data);
+          // link.href = URL.createObjectURL(data);
           link.download = "data.csv";
           link.click();
         })

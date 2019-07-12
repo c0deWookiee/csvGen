@@ -1,7 +1,7 @@
-// const salesReport = require("../../../sales_report");
-
-const populateCSV = (report, fields) => {
+let digit = 1;
+const populateCSV = (report, fields, digit) => {
   let output = "";
+  const replacer = fields ? `,${digit}\n` : `,colID\n`;
   //we don't want to include children in the final CSV report
   for (let key in report) {
     if (key === "children") {
@@ -14,21 +14,15 @@ const populateCSV = (report, fields) => {
       output += key + ",";
     }
   } ///.$/ targets the last character in a string. 2nd arg is to input a  a new line
-  return output.replace(/.$/, "\n");
+  return output.replace(/.$/, replacer);
 };
 
 // console.log(populateCSV(salesReport));
 
 const restOfCSV = report => {
-  //if the report is undefined return.
   if (report === undefined) return;
-  //initiate a str variable
-  //gather the values from the report into a string, separated by commas.
-  let output = populateCSV(report, true);
-  // .join(",")
-  //replace the last character of the strin with a newline
-  // .replace(/.$/, "\n");
-  //recursive call to affect all possible children
+  let output = populateCSV(report, true, digit++);
+
   if (report.children)
     for (let child of report.children) {
       output += restOfCSV(child);
@@ -37,9 +31,9 @@ const restOfCSV = report => {
   //return the string
   return output;
 };
-// console.log(populateCSV(salesReport) + restOfCSV(salesReport));
 
 const generateCSV = report => {
+  digit = 1;
   return populateCSV(report) + restOfCSV(report);
 };
 
