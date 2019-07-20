@@ -1,7 +1,7 @@
 let digit = 1;
 const populateCSV = (report, fields, digit) => {
   let output = "";
-  const replacer = fields ? `,${digit}\n` : `,colID\n`;
+  const replacer = fields ? `,${digit}\n` : `,rowID,parentID\n`;
   //we don't want to include children in the final CSV report
   for (let key in report) {
     if (key === "children") {

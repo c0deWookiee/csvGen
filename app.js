@@ -64,7 +64,12 @@ download.addEventListener("click", () => {
       data = data.message;
       for (let counter = 0; counter < 5; counter++) {
         const body = data[data.length - 1 - counter];
-        list.appendChild(createAppend("Li", body, "listItem", true));
+        if (!body) {
+          list.appendChild(createAppend("Li", body, "listItem", false));
+        } else {
+          list.appendChild(createAppend("Li", body, "listItem", true));
+          console.log(body);
+        }
       }
     });
 });
